@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".Formulario">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_ENCUESTA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="ENCUESTA"
+                android:textAlignment="center"
+                android:textColor="#FFFF"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Nombre"
+                android:textColor="#FFFF" />
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Fecha de Nacimiento"
+                android:textColor="#FFFF" />
+
+            <EditText
+                android:id="@+id/fechanacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Direccion"
+                android:textColor="#FFFF" />
+
+            <EditText
+                android:id="@+id/direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Celular"
+                android:textColor="#FFFF" />
+
+            <EditText
+                android:id="@+id/celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/parent_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/child_scroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="#FF018786"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/pregunta1"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿Es usted el principal sostén de la familia?"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="SI" />
+                            <CheckBox
+                                android:id="@+id/respuesta11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NO" />
+
+                            <TextView
+                                android:id="@+id/pregunta2"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿Cuánto es su sueldo?"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1800 bs - 2300 bs" />
+                            <CheckBox
+                                android:id="@+id/respuesta21"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2300 bs – 3500 bs" />
+                            <CheckBox
+                                android:id="@+id/respuesta22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3600 bs – 4100 bs" />
+                            <CheckBox
+                                android:id="@+id/respuesta23"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mas de 5000" />
+
+                            <TextView
+                                android:id="@+id/pregunta3"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿De cuantas personas está conformada su familia ?"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3" />
+                            <CheckBox
+                                android:id="@+id/respuesta31"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4" />
+                            <CheckBox
+                                android:id="@+id/respuesta32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5" />
+                            <CheckBox
+                                android:id="@+id/respuesta33"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6" />
+                            <CheckBox
+                                android:id="@+id/respuesta34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="7" />
+
+                            <TextView
+                                android:id="@+id/pregunta4"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="Usted trabaja en un establecimiento…"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dependiente" />
+                            <CheckBox
+                                android:id="@+id/respuesta41"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Independiente" />
+                            <CheckBox
+                                android:id="@+id/respuesta42"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="privado" />
+                            <CheckBox
+                                android:id="@+id/respuesta43"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Publico" />
+                            <TextView
+                                android:id="@+id/pregunta5"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="Usted y su familia viven en…"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Casa propia" />
+                            <CheckBox
+                                android:id="@+id/respuesta51"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Alquiler" />
+                            <CheckBox
+                                android:id="@+id/respuesta52"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Anticretico" />
+                            <CheckBox
+                                android:id="@+id/respuesta53"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Departamento" />
+                            <TextView
+                                android:id="@+id/pregunta6"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="El piso de su vivienda es material.."
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ceramica" />
+                            <CheckBox
+                                android:id="@+id/respuesta61"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Loseta" />
+                            <CheckBox
+                                android:id="@+id/respuesta62"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cemento planchado" />
+                            <CheckBox
+                                android:id="@+id/respuesta63"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Marmol" />
+                            <CheckBox
+                                android:id="@+id/respuesta64"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Madera" />
+                            <TextView
+                                android:id="@+id/pregunta7"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="Las paredes interiores de su vivienda tienen revoque:"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Si" />
+                            <CheckBox
+                                android:id="@+id/respuesta71"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No" />
+                            <TextView
+                                android:id="@+id/pregunta8"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿Cuántas habitaciones cuenta su vivienda ? sin contar baños"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2" />
+                            <CheckBox
+                                android:id="@+id/respuesta81"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3" />
+                            <CheckBox
+                                android:id="@+id/respuesta82"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4" />
+                            <CheckBox
+                                android:id="@+id/respuesta83"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5" />
+                            <CheckBox
+                                android:id="@+id/respuesta84"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6" />
+                            <CheckBox
+                                android:id="@+id/respuesta85"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mas.." />
+                            <TextView
+                                android:id="@+id/pregunta9"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿Qué idiomas sabe hablar? Respuesta múltiple"
+                                android:textColor="@color/black" />
+
+                            <CheckBox
+                                android:id="@+id/respuesta9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Español" />
+                            <CheckBox
+                                android:id="@+id/respuesta91"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ingles" />
+                            <CheckBox
+                                android:id="@+id/respuesta92"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Quechua" />
+                            <CheckBox
+                                android:id="@+id/respuesta93"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Aymara" />
+                            <CheckBox
+                                android:id="@+id/respuesta94"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Guarani" />
+                            <TextView
+                                android:id="@+id/pregunta10"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="¿Cuenta en su vivienda alguno de estos electrodomésticos? Respuesta múltiple"
+                                android:textColor="@color/black" />
+                            <CheckBox
+                                android:id="@+id/respuesta10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Microondas" />
+                            <CheckBox
+                                android:id="@+id/respuesta101"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lavadora" />
+                            <CheckBox
+                                android:id="@+id/respuesta102"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Computadora" />
+                            <CheckBox
+                                android:id="@+id/respuesta103"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Auto" />
+                        </LinearLayout>
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_record"
+                    android:layout_width="69dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="left"
+
+                    android:background="@drawable/stop_rec"
+                    android:onClick="Recorder" />
+
+                <Button
+
+                    android:id="@+id/btn_play"
+                    android:layout_width="65dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/reproducir"
+                    android:onClick="reproducir" />
+
+                <TextView
+                    android:id="@+id/estado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center"
+                    android:text="Estado.."
+                    android:textColor="#FFFF"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:srcCompat="@drawable/salir" />
+            <Button
+                android:id="@+id/btn_enviar"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:background="#07600B"
+                android:onClick="enviardatos"
+                android:text="Enviar"
+                android:textColor="#FFFEFE" />
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>
