@@ -47,7 +47,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Formulario extends AppCompatActivity {
-private StringBuilder result1;
+    private StringBuilder result1;
     private StringBuilder result2;
     private StringBuilder result3;
     private StringBuilder result4;
@@ -63,17 +63,17 @@ private StringBuilder result1;
     private String jsonFormulario;
     private String latitud;
     private String longitud;
-    private CheckBox Cbx_respuesta1,Cbx_respuesta11,
-                     Cbx_respuesta2, Cbx_respuesta21,Cbx_respuesta22,Cbx_respuesta23,
-                     Cbx_respuesta3, Cbx_respuesta31,Cbx_respuesta32,Cbx_respuesta33,Cbx_respuesta34,
-                     Cbx_respuesta4, Cbx_respuesta41,Cbx_respuesta42,Cbx_respuesta43,
-                     Cbx_respuesta5, Cbx_respuesta51,Cbx_respuesta52,Cbx_respuesta53,
-                     Cbx_respuesta6, Cbx_respuesta61,Cbx_respuesta62,Cbx_respuesta63,Cbx_respuesta64,
-                     Cbx_respuesta7,  Cbx_respuesta71,
-                     Cbx_respuesta8,  Cbx_respuesta81, Cbx_respuesta82, Cbx_respuesta83, Cbx_respuesta84, Cbx_respuesta85,
-                     Cbx_respuesta9, Cbx_respuesta91,Cbx_respuesta92,Cbx_respuesta93,Cbx_respuesta94,
-                     Cbx_respuesta10,Cbx_respuesta101,Cbx_respuesta102,Cbx_respuesta103;
-    private TextView Tv_Estado,tv_pregunta1, tv_pregunta2, tv_pregunta3, tv_pregunta4,tv_pregunta5, tv_pregunta6, tv_pregunta7, tv_pregunta8, tv_pregunta9, tv_pregunta10;
+    private CheckBox Cbx_respuesta1, Cbx_respuesta11,
+            Cbx_respuesta2, Cbx_respuesta21, Cbx_respuesta22, Cbx_respuesta23,
+            Cbx_respuesta3, Cbx_respuesta31, Cbx_respuesta32, Cbx_respuesta33, Cbx_respuesta34,
+            Cbx_respuesta4, Cbx_respuesta41, Cbx_respuesta42, Cbx_respuesta43,
+            Cbx_respuesta5, Cbx_respuesta51, Cbx_respuesta52, Cbx_respuesta53,
+            Cbx_respuesta6, Cbx_respuesta61, Cbx_respuesta62, Cbx_respuesta63, Cbx_respuesta64,
+            Cbx_respuesta7, Cbx_respuesta71,
+            Cbx_respuesta8, Cbx_respuesta81, Cbx_respuesta82, Cbx_respuesta83, Cbx_respuesta84, Cbx_respuesta85,
+            Cbx_respuesta9, Cbx_respuesta91, Cbx_respuesta92, Cbx_respuesta93, Cbx_respuesta94,
+            Cbx_respuesta10, Cbx_respuesta101, Cbx_respuesta102, Cbx_respuesta103;
+    private TextView Tv_Estado, tv_pregunta1, tv_pregunta2, tv_pregunta3, tv_pregunta4, tv_pregunta5, tv_pregunta6, tv_pregunta7, tv_pregunta8, tv_pregunta9, tv_pregunta10;
     private EditText Et_nombre, Et_fechaNacimiento, Et_Direccion, Et_Celular;
 
     private EndpointsPolls endpointsPolls;
@@ -86,41 +86,66 @@ private StringBuilder result1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-        fab_button= findViewById(R.id.floatingActionButton4);
+        fab_button = findViewById(R.id.floatingActionButton4);
         btn_recorder = findViewById(R.id.btn_record);
         Tv_Estado = findViewById(R.id.estado);
         Et_nombre = findViewById(R.id.nombre);
         Et_fechaNacimiento = findViewById(R.id.fechanacimiento);
         Et_Direccion = findViewById(R.id.direccion);
         Et_Celular = findViewById(R.id.celular);
-        tv_pregunta1 = findViewById(R.id.pregunta1);        tv_pregunta2 = findViewById(R.id.pregunta2);
-        tv_pregunta3 = findViewById(R.id.pregunta3);        tv_pregunta4 = findViewById(R.id.pregunta4);
-        tv_pregunta5 = findViewById(R.id.pregunta5);        tv_pregunta6 = findViewById(R.id.pregunta6);
-        tv_pregunta7 = findViewById(R.id.pregunta7);        tv_pregunta8 = findViewById(R.id.pregunta8);
-        tv_pregunta9 = findViewById(R.id.pregunta9);       tv_pregunta10 = findViewById(R.id.pregunta10);
+        tv_pregunta1 = findViewById(R.id.pregunta1);
+        tv_pregunta2 = findViewById(R.id.pregunta2);
+        tv_pregunta3 = findViewById(R.id.pregunta3);
+        tv_pregunta4 = findViewById(R.id.pregunta4);
+        tv_pregunta5 = findViewById(R.id.pregunta5);
+        tv_pregunta6 = findViewById(R.id.pregunta6);
+        tv_pregunta7 = findViewById(R.id.pregunta7);
+        tv_pregunta8 = findViewById(R.id.pregunta8);
+        tv_pregunta9 = findViewById(R.id.pregunta9);
+        tv_pregunta10 = findViewById(R.id.pregunta10);
 
 
-        Cbx_respuesta1=findViewById(R.id.respuesta1);        Cbx_respuesta11=findViewById(R.id.respuesta11);
-        Cbx_respuesta2=findViewById(R.id.respuesta2);        Cbx_respuesta21=findViewById(R.id.respuesta21);
-        Cbx_respuesta22=findViewById(R.id.respuesta22);        Cbx_respuesta23=findViewById(R.id.respuesta23);
-        Cbx_respuesta3=findViewById(R.id.respuesta3);        Cbx_respuesta31=findViewById(R.id.respuesta31);
-        Cbx_respuesta32=findViewById(R.id.respuesta32);        Cbx_respuesta33=findViewById(R.id.respuesta33);
-        Cbx_respuesta34=findViewById(R.id.respuesta34);        Cbx_respuesta4=findViewById(R.id.respuesta4);
-        Cbx_respuesta41=findViewById(R.id.respuesta41);        Cbx_respuesta42=findViewById(R.id.respuesta42);
-        Cbx_respuesta43=findViewById(R.id.respuesta43);        Cbx_respuesta5=findViewById(R.id.respuesta5);
-        Cbx_respuesta51=findViewById(R.id.respuesta51);        Cbx_respuesta52=findViewById(R.id.respuesta52);
-        Cbx_respuesta53=findViewById(R.id.respuesta53);        Cbx_respuesta6=findViewById(R.id.respuesta6);
-        Cbx_respuesta61=findViewById(R.id.respuesta61);        Cbx_respuesta62=findViewById(R.id.respuesta62);
-        Cbx_respuesta63=findViewById(R.id.respuesta63);        Cbx_respuesta64=findViewById(R.id.respuesta64);
-        Cbx_respuesta7=findViewById(R.id.respuesta7);        Cbx_respuesta71=findViewById(R.id.respuesta71);
-        Cbx_respuesta8=findViewById(R.id.respuesta8);        Cbx_respuesta81=findViewById(R.id.respuesta81);
-        Cbx_respuesta82=findViewById(R.id.respuesta82);        Cbx_respuesta83=findViewById(R.id.respuesta83);
-        Cbx_respuesta84=findViewById(R.id.respuesta84);        Cbx_respuesta85=findViewById(R.id.respuesta85);
-        Cbx_respuesta9=findViewById(R.id.respuesta9);        Cbx_respuesta91=findViewById(R.id.respuesta91);
-        Cbx_respuesta92=findViewById(R.id.respuesta92);        Cbx_respuesta93=findViewById(R.id.respuesta93);
-        Cbx_respuesta94=findViewById(R.id.respuesta94);        Cbx_respuesta10=findViewById(R.id.respuesta10);
-        Cbx_respuesta101=findViewById(R.id.respuesta101);        Cbx_respuesta102=findViewById(R.id.respuesta102);
-        Cbx_respuesta103=findViewById(R.id.respuesta103);
+        Cbx_respuesta1 = findViewById(R.id.respuesta1);
+        Cbx_respuesta11 = findViewById(R.id.respuesta11);
+        Cbx_respuesta2 = findViewById(R.id.respuesta2);
+        Cbx_respuesta21 = findViewById(R.id.respuesta21);
+        Cbx_respuesta22 = findViewById(R.id.respuesta22);
+        Cbx_respuesta23 = findViewById(R.id.respuesta23);
+        Cbx_respuesta3 = findViewById(R.id.respuesta3);
+        Cbx_respuesta31 = findViewById(R.id.respuesta31);
+        Cbx_respuesta32 = findViewById(R.id.respuesta32);
+        Cbx_respuesta33 = findViewById(R.id.respuesta33);
+        Cbx_respuesta34 = findViewById(R.id.respuesta34);
+        Cbx_respuesta4 = findViewById(R.id.respuesta4);
+        Cbx_respuesta41 = findViewById(R.id.respuesta41);
+        Cbx_respuesta42 = findViewById(R.id.respuesta42);
+        Cbx_respuesta43 = findViewById(R.id.respuesta43);
+        Cbx_respuesta5 = findViewById(R.id.respuesta5);
+        Cbx_respuesta51 = findViewById(R.id.respuesta51);
+        Cbx_respuesta52 = findViewById(R.id.respuesta52);
+        Cbx_respuesta53 = findViewById(R.id.respuesta53);
+        Cbx_respuesta6 = findViewById(R.id.respuesta6);
+        Cbx_respuesta61 = findViewById(R.id.respuesta61);
+        Cbx_respuesta62 = findViewById(R.id.respuesta62);
+        Cbx_respuesta63 = findViewById(R.id.respuesta63);
+        Cbx_respuesta64 = findViewById(R.id.respuesta64);
+        Cbx_respuesta7 = findViewById(R.id.respuesta7);
+        Cbx_respuesta71 = findViewById(R.id.respuesta71);
+        Cbx_respuesta8 = findViewById(R.id.respuesta8);
+        Cbx_respuesta81 = findViewById(R.id.respuesta81);
+        Cbx_respuesta82 = findViewById(R.id.respuesta82);
+        Cbx_respuesta83 = findViewById(R.id.respuesta83);
+        Cbx_respuesta84 = findViewById(R.id.respuesta84);
+        Cbx_respuesta85 = findViewById(R.id.respuesta85);
+        Cbx_respuesta9 = findViewById(R.id.respuesta9);
+        Cbx_respuesta91 = findViewById(R.id.respuesta91);
+        Cbx_respuesta92 = findViewById(R.id.respuesta92);
+        Cbx_respuesta93 = findViewById(R.id.respuesta93);
+        Cbx_respuesta94 = findViewById(R.id.respuesta94);
+        Cbx_respuesta10 = findViewById(R.id.respuesta10);
+        Cbx_respuesta101 = findViewById(R.id.respuesta101);
+        Cbx_respuesta102 = findViewById(R.id.respuesta102);
+        Cbx_respuesta103 = findViewById(R.id.respuesta103);
 
         AlertDialog dialogo = new AlertDialog
                 .Builder(Formulario.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
@@ -220,191 +245,191 @@ private StringBuilder result1;
 
     public void enviardatos(View view) {
         try {
-       try {
-            result1=new StringBuilder();
-           result1.append("Respuestas1:");
-           if(Cbx_respuesta1.isChecked()){
-               result1.append("\n"+Cbx_respuesta1.getText()+"\n");
-           }
-           if(Cbx_respuesta11.isChecked()){
-               result1.append("\n"+Cbx_respuesta11.getText()+"\n");
+            try {
+                result1 = new StringBuilder();
+                result1.append("Respuestas1:");
+                if (Cbx_respuesta1.isChecked()) {
+                    result1.append("\n" + Cbx_respuesta1.getText() + "\n");
+                }
+                if (Cbx_respuesta11.isChecked()) {
+                    result1.append("\n" + Cbx_respuesta11.getText() + "\n");
 
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-        try {
-               result2=new StringBuilder();
-            result2.append("Respuestas2:");
-            if(Cbx_respuesta2.isChecked()){
-                result2.append("\n"+Cbx_respuesta2.getText()+"\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if(Cbx_respuesta21.isChecked()){
-                result2.append("\n"+Cbx_respuesta21.getText()+"\n");
+            try {
+                result2 = new StringBuilder();
+                result2.append("Respuestas2:");
+                if (Cbx_respuesta2.isChecked()) {
+                    result2.append("\n" + Cbx_respuesta2.getText() + "\n");
+                }
+                if (Cbx_respuesta21.isChecked()) {
+                    result2.append("\n" + Cbx_respuesta21.getText() + "\n");
+                }
+                if (Cbx_respuesta22.isChecked()) {
+                    result2.append("\n" + Cbx_respuesta22.getText() + "\n");
+                }
+                if (Cbx_respuesta23.isChecked()) {
+                    result2.append("\n" + Cbx_respuesta23.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if(Cbx_respuesta22.isChecked()){
-                result2.append("\n"+Cbx_respuesta22.getText()+"\n");
+            try {
+                result3 = new StringBuilder();
+                result3.append("Respuestas3:");
+                if (Cbx_respuesta1.isChecked()) {
+                    result3.append("\n" + Cbx_respuesta3.getText() + "\n");
+                }
+                if (Cbx_respuesta31.isChecked()) {
+                    result3.append("\n" + Cbx_respuesta31.getText() + "\n");
+                }
+                if (Cbx_respuesta32.isChecked()) {
+                    result3.append("\n" + Cbx_respuesta32.getText() + "\n");
+                }
+                if (Cbx_respuesta33.isChecked()) {
+                    result3.append("\n" + Cbx_respuesta33.getText() + "\n");
+                }
+                if (Cbx_respuesta34.isChecked()) {
+                    result3.append("\n" + Cbx_respuesta34.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if(Cbx_respuesta23.isChecked()){
-                result2.append("\n"+Cbx_respuesta23.getText()+"\n");
+            try {
+                result4 = new StringBuilder();
+                result4.append("Respuestas4:");
+                if (Cbx_respuesta4.isChecked()) {
+                    result4.append("\n" + Cbx_respuesta4.getText() + "\n");
+                }
+                if (Cbx_respuesta41.isChecked()) {
+                    result4.append("\n" + Cbx_respuesta41.getText() + "\n");
+                }
+                if (Cbx_respuesta42.isChecked()) {
+                    result4.append("\n" + Cbx_respuesta42.getText() + "\n");
+                }
+                if (Cbx_respuesta43.isChecked()) {
+                    result4.append("\n" + Cbx_respuesta43.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result5 = new StringBuilder();
+                result5.append("Respuestas5:");
+                if (Cbx_respuesta5.isChecked()) {
+                    result5.append("\n" + Cbx_respuesta5.getText() + "\n");
+                }
+                if (Cbx_respuesta51.isChecked()) {
+                    result5.append("\n" + Cbx_respuesta51.getText() + "\n");
+                }
+                if (Cbx_respuesta52.isChecked()) {
+                    result5.append("\n" + Cbx_respuesta52.getText() + "\n");
+                }
+                if (Cbx_respuesta53.isChecked()) {
+                    result5.append("\n" + Cbx_respuesta53.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result6 = new StringBuilder();
+                result6.append("Respuestas6:");
+                if (Cbx_respuesta6.isChecked()) {
+                    result6.append("\n" + Cbx_respuesta6.getText() + "\n");
+                }
+                if (Cbx_respuesta61.isChecked()) {
+                    result6.append("\n" + Cbx_respuesta61.getText() + "\n");
+                }
+                if (Cbx_respuesta62.isChecked()) {
+                    result6.append("\n" + Cbx_respuesta62.getText() + "\n");
+                }
+                if (Cbx_respuesta63.isChecked()) {
+                    result6.append("\n" + Cbx_respuesta63.getText() + "\n");
+                }
+                if (Cbx_respuesta64.isChecked()) {
+                    result6.append("\n" + Cbx_respuesta64.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result7 = new StringBuilder();
+                result7.append("Respuestas7:");
+                if (Cbx_respuesta7.isChecked()) {
+                    result7.append("\n" + Cbx_respuesta7.getText() + "\n");
+                }
+                if (Cbx_respuesta71.isChecked()) {
+                    result7.append("\n" + Cbx_respuesta71.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result8 = new StringBuilder();
+                result8.append("Respuestas8:");
+                if (Cbx_respuesta8.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta8.getText() + "\n");
+                }
+                if (Cbx_respuesta81.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta81.getText() + "\n");
+                }
+                if (Cbx_respuesta82.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta82.getText() + "\n");
+                }
+                if (Cbx_respuesta83.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta83.getText() + "\n");
+                }
+                if (Cbx_respuesta84.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta84.getText() + "\n");
+                }
+                if (Cbx_respuesta85.isChecked()) {
+                    result8.append("\n" + Cbx_respuesta85.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result9 = new StringBuilder();
+                result9.append("Respuestas9:");
+                if (Cbx_respuesta9.isChecked()) {
+                    result9.append("\n" + Cbx_respuesta9.getText() + "\n");
+                }
+                if (Cbx_respuesta91.isChecked()) {
+                    result9.append("\n" + Cbx_respuesta91.getText() + "\n");
+                }
+                if (Cbx_respuesta92.isChecked()) {
+                    result9.append("\n" + Cbx_respuesta92.getText() + "\n");
+                }
+                if (Cbx_respuesta93.isChecked()) {
+                    result9.append("\n" + Cbx_respuesta93.getText() + "\n");
+                }
+                if (Cbx_respuesta94.isChecked()) {
+                    result9.append("\n" + Cbx_respuesta94.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                result10 = new StringBuilder();
+                result10.append("Respuestas10:");
+                if (Cbx_respuesta10.isChecked()) {
+                    result10.append("\n" + Cbx_respuesta10.getText() + "\n");
+                }
+                if (Cbx_respuesta101.isChecked()) {
+                    result10.append("\n" + Cbx_respuesta101.getText() + "\n");
+                }
+                if (Cbx_respuesta102.isChecked()) {
+                    result10.append("\n" + Cbx_respuesta102.getText() + "\n");
+                }
+                if (Cbx_respuesta103.isChecked()) {
+                    result10.append("\n" + Cbx_respuesta103.getText() + "\n");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-           result3=new StringBuilder();
-            result3.append("Respuestas3:");
-            if(Cbx_respuesta1.isChecked()){
-                result3.append("\n"+Cbx_respuesta3.getText()+"\n");
-            }
-            if(Cbx_respuesta31.isChecked()){
-                result3.append("\n"+Cbx_respuesta31.getText()+"\n");
-            }
-            if(Cbx_respuesta32.isChecked()){
-                result3.append("\n"+Cbx_respuesta32.getText()+"\n");
-            }
-            if(Cbx_respuesta33.isChecked()){
-                result3.append("\n"+Cbx_respuesta33.getText()+"\n");
-            }
-            if(Cbx_respuesta34.isChecked()){
-                result3.append("\n"+Cbx_respuesta34.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-          result4=new StringBuilder();
-            result4.append("Respuestas4:");
-            if(Cbx_respuesta4.isChecked()){
-                result4.append("\n"+Cbx_respuesta4.getText()+"\n");
-            }
-            if(Cbx_respuesta41.isChecked()){
-                result4.append("\n"+Cbx_respuesta41.getText()+"\n");
-            }
-            if(Cbx_respuesta42.isChecked()){
-                result4.append("\n"+Cbx_respuesta42.getText()+"\n");
-            }
-            if(Cbx_respuesta43.isChecked()){
-                result4.append("\n"+Cbx_respuesta43.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-           result5=new StringBuilder();
-            result5.append("Respuestas5:");
-            if(Cbx_respuesta5.isChecked()){
-                result5.append("\n"+Cbx_respuesta5.getText()+"\n");
-            }
-            if(Cbx_respuesta51.isChecked()){
-                result5.append("\n"+Cbx_respuesta51.getText()+"\n");
-            }
-            if(Cbx_respuesta52.isChecked()){
-                result5.append("\n"+Cbx_respuesta52.getText()+"\n");
-            }
-            if(Cbx_respuesta53.isChecked()){
-                result5.append("\n"+Cbx_respuesta53.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            result6=new StringBuilder();
-            result6.append("Respuestas6:");
-            if(Cbx_respuesta6.isChecked()){
-                result6.append("\n"+Cbx_respuesta6.getText()+"\n");
-            }
-            if(Cbx_respuesta61.isChecked()){
-                result6.append("\n"+Cbx_respuesta61.getText()+"\n");
-            }
-            if(Cbx_respuesta62.isChecked()){
-                result6.append("\n"+Cbx_respuesta62.getText()+"\n");
-            }
-            if(Cbx_respuesta63.isChecked()){
-                result6.append("\n"+Cbx_respuesta63.getText()+"\n");
-            }
-            if(Cbx_respuesta64.isChecked()){
-                result6.append("\n"+Cbx_respuesta64.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-           result7=new StringBuilder();
-            result7.append("Respuestas7:");
-            if(Cbx_respuesta7.isChecked()){
-                result7.append("\n"+Cbx_respuesta7.getText()+"\n");
-            }
-            if(Cbx_respuesta71.isChecked()){
-                result7.append("\n"+Cbx_respuesta71.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            result8=new StringBuilder();
-            result8.append("Respuestas8:");
-            if(Cbx_respuesta8.isChecked()){
-                result8.append("\n"+Cbx_respuesta8.getText()+"\n");
-            }
-            if(Cbx_respuesta81.isChecked()){
-                result8.append("\n"+Cbx_respuesta81.getText()+"\n");
-            }
-            if(Cbx_respuesta82.isChecked()){
-                result8.append("\n"+Cbx_respuesta82.getText()+"\n");
-            }
-            if(Cbx_respuesta83.isChecked()){
-                result8.append("\n"+Cbx_respuesta83.getText()+"\n");
-            }
-            if(Cbx_respuesta84.isChecked()){
-                result8.append("\n"+Cbx_respuesta84.getText()+"\n");
-            }
-            if(Cbx_respuesta85.isChecked()){
-                result8.append("\n"+Cbx_respuesta85.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-          result9=new StringBuilder();
-            result9.append("Respuestas9:");
-            if(Cbx_respuesta9.isChecked()){
-                result9.append("\n"+Cbx_respuesta9.getText()+"\n");
-            }
-            if(Cbx_respuesta91.isChecked()){
-                result9.append("\n"+Cbx_respuesta91.getText()+"\n");
-            }
-            if(Cbx_respuesta92.isChecked()){
-                result9.append("\n"+Cbx_respuesta92.getText()+"\n");
-            }
-            if(Cbx_respuesta93.isChecked()){
-                result9.append("\n"+Cbx_respuesta93.getText()+"\n");
-            }
-            if(Cbx_respuesta94.isChecked()){
-                result9.append("\n"+Cbx_respuesta94.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-           result10=new StringBuilder();
-            result10.append("Respuestas10:");
-            if(Cbx_respuesta10.isChecked()){
-                result10.append("\n"+Cbx_respuesta10.getText()+"\n");
-            }
-            if(Cbx_respuesta101.isChecked()){
-                result10.append("\n"+Cbx_respuesta101.getText()+"\n");
-            }
-            if(Cbx_respuesta102.isChecked()){
-                result10.append("\n"+Cbx_respuesta102.getText()+"\n");
-            }
-            if(Cbx_respuesta103.isChecked()){
-                result10.append("\n"+Cbx_respuesta103.getText()+"\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        }catch (Exception e) {
             e.printStackTrace();
         }
         EncuestaDto encuestaDto = new EncuestaDto()

@@ -1,10 +1,10 @@
 package com.example.tallerredes;
 
+import static com.example.tallerredes.VariablesGlobales.BASE_URL;
 import static com.example.tallerredes.VariablesGlobales.isOn;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -14,10 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
@@ -29,13 +26,22 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.tallerredes.VariablesGlobales.*;
 
+import com.example.tallerredes.apis.EndpointsPolls;
+import com.example.tallerredes.dtos.EncuestaDto;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EncuestaAtivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
@@ -45,31 +51,48 @@ public class EncuestaAtivity extends AppCompatActivity {
     Handler h = new Handler();
     FusedLocationProviderClient fusedLocationProviderClient;
 
+    private EndpointsPolls endpointsPolls;
+    private Retrofit retrofit;
+    private Call<List<EncuestaDto>> getPollsByUserIdApi;
+    private int userId;
+
     private SharedPreferences preferences;
     FloatingActionButton fab_button;
     private TextView tv_Encuesta;
     private ListView lv_AllEncuestas;
-    private String[] encuestas = { "Argentina", "Chile", "Paraguay", "Bolivia",
-            "Peru", "Ecuador", "Brasil", "Colombia", "Venezuela", "Uruguay" };  // EndPoint  que devuelva un array de todas las encuestas realizadas por el encuestador get/IDencuestador/AllEncuestas
+
+    public ArrayAdapter<String> adapter;
+    public List<String> encuestasCorrelativos = new ArrayList<>();
+    private List<String> detalleEncuestas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encuesta);
-        tv_Encuesta=findViewById(R.id.tv1);
-        lv_AllEncuestas =findViewById(R.id.list1);
+        tv_Encuesta = findViewById(R.id.tv1);
+        lv_AllEncuestas = findViewById(R.id.list1);
         Switch simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
         simpleSwitch.setChecked(isOn);
-        fab_button= findViewById(R.id.floatingActionButton3);
+        fab_button = findViewById(R.id.floatingActionButton3);
         preferences = getSharedPreferences("preferences", MODE_PRIVATE);
         Button btnIngresar = findViewById(R.id.btn_nuevaEncuesta);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, posicionesDeEncuestas(encuestas)); // Para ver todas las encuestas del encuestaoor
-        lv_AllEncuestas.setAdapter(adapter);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        endpointsPolls = retrofit.create(EndpointsPolls.class);
+
+        userId = preferences.getInt("userId", 0);
+
+        cargarEncuestas();
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, posicionesDeEncuestas(detalleEncuestas)); // Para ver todas las encuestas del encuestaoor
+        //lv_AllEncuestas.setAdapter(adapter);
 
         lv_AllEncuestas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                tv_Encuesta.setText(encuestas[position] );                                           // para mostrar el contenido de la  encuestas seleccionada
+                tv_Encuesta.setText(detalleEncuestas.get(position));
             }
         });
         AlertDialog dialogo = new AlertDialog
@@ -94,7 +117,7 @@ public class EncuestaAtivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (simpleSwitch.isChecked()) {
-                   isOn = true;
+                    isOn = true;
                     hilocronometro();
                     iniciarLocalizacion();
 
@@ -108,22 +131,50 @@ public class EncuestaAtivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isOn==true){
+                if (isOn == true) {
                     Intent intent = new Intent(EncuestaAtivity.this, Formulario.class);
                     startActivity(intent);
-                }else{
+                } else {
                     Toast.makeText(EncuestaAtivity.this, "Active su GPS", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-fab_button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        dialogo.show();
+        fab_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogo.show();
+
+            }
+        });
 
     }
-});
+
+    private void cargarEncuestas() {
+        getPollsByUserIdApi = endpointsPolls.getAllPollsByUserId(userId);
+        getPollsByUserIdApi.enqueue(new Callback<List<EncuestaDto>>() {
+            @Override
+            public void onResponse(Call<List<EncuestaDto>> call, Response<List<EncuestaDto>> response) {
+                if (response.isSuccessful()) {
+                    int countPolls = response.body().size();
+                    IntStream.range(0, countPolls)
+                            .forEach(v -> {
+                                encuestasCorrelativos.add(String.format("Encuesta #%s", v));
+                            });
+                }
+                adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, encuestasCorrelativos); // Para ver todas las encuestas del encuestaoor
+                detalleEncuestas = response.body().stream()
+                        .map(poll -> poll.toString()).collect(Collectors.toList());
+                lv_AllEncuestas.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<EncuestaDto>> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -147,14 +198,16 @@ fab_button.setOnClickListener(new View.OnClickListener() {
 
         Log.d("debug", "Localizacion agregada");
     }
-private ArrayList posicionesDeEncuestas(String[] lista){
-       ArrayList posiciones= new ArrayList();
-    for (int i = 0; i < lista.length; i++) {
-int x=i+1;
-        posiciones.add("Encuesta #"+x);
+
+    private ArrayList posicionesDeEncuestas(String[] lista) {
+        ArrayList posiciones = new ArrayList();
+        for (int i = 0; i < lista.length; i++) {
+            int x = i + 1;
+            posiciones.add("Encuesta #" + x);
+        }
+        return posiciones;
     }
-return posiciones;
-}
+
     private void hilocronometro() {
         cronos = new Thread(new Runnable() {
             @Override

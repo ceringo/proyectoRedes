@@ -21,4 +21,9 @@ public class QuestionDto {
         Answer = answer;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "======================================" + '\n' + " PREGUNTA :" + '\t' + QuestionName + '\n' + " RESPUESTA:" + '\t' + Answer + '\n' + "======================================";
+    }
 }

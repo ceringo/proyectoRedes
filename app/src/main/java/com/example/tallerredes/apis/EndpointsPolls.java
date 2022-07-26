@@ -24,6 +24,8 @@ public interface EndpointsPolls {
     @POST("poll")
     Call<ResponsePostPollDto> postPoll(@Body EncuestaDto encuestaDto);
 
+    @GET("poll/{userId}/user")
+    Call<List<EncuestaDto>> getAllPollsByUserId(@Path("userId") int userId);
 
     @PUT("pollster/{pollsterId}")
     Call<ResponsePutLocationDto> putLocation(@Path("pollsterId") int pollsterId, @Query("Latitude") float latitude, @Query("Longitude") float longitude);
