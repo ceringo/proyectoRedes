@@ -2,19 +2,15 @@ package com.example.tallerredes;
 
 import static com.example.tallerredes.VariablesGlobales.BASE_URL;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tallerredes.apis.EndpointsPolls;
-import com.example.tallerredes.dtos.ResponsePostPollDto;
-import com.example.tallerredes.dtos.ResponsePutLocationDto;
+import com.example.tallerredes.dtos.PutLocationDtoResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +25,7 @@ public class Localizacion implements LocationListener {
 
     private EndpointsPolls endpointsPolls;
     private Retrofit retrofit;
-    private Call<ResponsePutLocationDto> putLocationApi;
+    private Call<PutLocationDtoResponse> putLocationApi;
 
     private int pollsterId;
 
@@ -59,16 +55,16 @@ public class Localizacion implements LocationListener {
 
 
         putLocationApi = endpointsPolls.putLocation(pollsterId, Float.parseFloat(VariablesGlobales.latitud), Float.parseFloat(VariablesGlobales.longitud));
-        putLocationApi.enqueue(new Callback<ResponsePutLocationDto>() {
+        putLocationApi.enqueue(new Callback<PutLocationDtoResponse>() {
             @Override
-            public void onResponse(Call<ResponsePutLocationDto> call, Response<ResponsePutLocationDto> response) {
+            public void onResponse(Call<PutLocationDtoResponse> call, Response<PutLocationDtoResponse> response) {
                 if (response.isSuccessful()) {
                     Log.i("ENDPOINT LOCATION: ", response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponsePutLocationDto> call, Throwable t) {
+            public void onFailure(Call<PutLocationDtoResponse> call, Throwable t) {
                 Log.i("ENDPOINT LOCATION ERROR: ", t.getLocalizedMessage());
             }
         });

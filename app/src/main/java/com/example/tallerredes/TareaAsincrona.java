@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.example.tallerredes.apis.EndpointsPolls;
-import com.example.tallerredes.dtos.ResponseSignInDto;
+import com.example.tallerredes.dtos.SignInDtoResponse;
 import com.example.tallerredes.dtos.SignInDto;
 
 import retrofit2.Call;
@@ -20,7 +20,7 @@ public class TareaAsincrona extends AsyncTask<Object, Void, Boolean> {
 
     private EndpointsPolls endpointsPolls;
     private Retrofit retrofit;
-    private Call<ResponseSignInDto> authenticateCallApi;
+    private Call<SignInDtoResponse> authenticateCallApi;
     private SharedPreferences accessUserSharedPreferences;
 
     public TareaAsincrona(Comunicacion comunicacion, SharedPreferences preferences) {
@@ -51,9 +51,9 @@ public class TareaAsincrona extends AsyncTask<Object, Void, Boolean> {
                     .setPassword(pass);
 
             authenticateCallApi = endpointsPolls.signIn(params, 1);
-            authenticateCallApi.enqueue(new Callback<ResponseSignInDto>() {
+            authenticateCallApi.enqueue(new Callback<SignInDtoResponse>() {
                 @Override
-                public void onResponse(Call<ResponseSignInDto> call, Response<ResponseSignInDto> response) {
+                public void onResponse(Call<SignInDtoResponse> call, Response<SignInDtoResponse> response) {
 
                     if (response.isSuccessful()) {
 
@@ -76,7 +76,7 @@ public class TareaAsincrona extends AsyncTask<Object, Void, Boolean> {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseSignInDto> call, Throwable t) {
+                public void onFailure(Call<SignInDtoResponse> call, Throwable t) {
 
                 }
             });

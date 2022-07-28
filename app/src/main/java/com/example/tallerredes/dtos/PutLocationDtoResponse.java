@@ -1,15 +1,14 @@
 package com.example.tallerredes.dtos;
 
-public class ResponsePostPollDto {
-
+public class PutLocationDtoResponse {
     public boolean success;
     public String message;
 
 
-    public ResponsePostPollDto() {
+    public PutLocationDtoResponse() {
     }
 
-    public ResponsePostPollDto(boolean success, String message) {
+    public PutLocationDtoResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
     }

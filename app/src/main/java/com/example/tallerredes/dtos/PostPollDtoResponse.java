@@ -1,17 +1,22 @@
 package com.example.tallerredes.dtos;
 
-public class ResponsePutLocationDto {
+public class PostPollDtoResponse {
+
     public boolean success;
     public String message;
+    public int pollIdCreated;
 
 
-    public ResponsePutLocationDto() {
+    public PostPollDtoResponse() {
     }
 
-    public ResponsePutLocationDto(boolean success, String message) {
+    public PostPollDtoResponse(boolean success, String message, int pollIdCreated) {
         this.success = success;
         this.message = message;
+        this.pollIdCreated = pollIdCreated;
     }
+
+
 
     public boolean isSuccess() {
         return success;
@@ -27,5 +32,13 @@ public class ResponsePutLocationDto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getPollIdCreated() {
+        return pollIdCreated;
+    }
+
+    public void setPollIdCreated(int pollIdCreated) {
+        this.pollIdCreated = pollIdCreated;
     }
 }

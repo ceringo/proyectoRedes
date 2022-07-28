@@ -1,6 +1,6 @@
 package com.example.tallerredes.dtos;
 
-public class ResponseSignInDto {
+public class SignInDtoResponse {
 
     private boolean auth;
     private float UserId;

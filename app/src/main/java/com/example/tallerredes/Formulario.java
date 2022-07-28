@@ -15,10 +15,8 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,8 +27,8 @@ import android.widget.Toast;
 import com.example.tallerredes.apis.EndpointsPolls;
 import com.example.tallerredes.dtos.EncuestaDto;
 import com.example.tallerredes.dtos.QuestionDto;
-import com.example.tallerredes.dtos.ResponsePostPollDto;
-import com.example.tallerredes.dtos.ResponseSignInDto;
+import com.example.tallerredes.dtos.PostPollDtoResponse;
+import com.example.tallerredes.dtos.UploadFileResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.apache.commons.io.FileUtils;
@@ -40,6 +38,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,7 +79,8 @@ public class Formulario extends AppCompatActivity {
 
     private EndpointsPolls endpointsPolls;
     private Retrofit retrofit;
-    private Call<ResponsePostPollDto> postPollApi;
+    private Call<PostPollDtoResponse> postPollApi;
+    private Call<UploadFileResponse> uploadFileApi;
     private SharedPreferences accessUserSharedPreferences;
     FloatingActionButton fab_button;
 
@@ -204,7 +206,7 @@ public class Formulario extends AppCompatActivity {
 
     public void Recorder(View view) {
         if (grabacion == null) {
-            archivoSalida = getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.mp3";
+            archivoSalida = getExternalFilesDir(null).getAbsolutePath() + "/sound-" + UUID.randomUUID() + ".mp3";
             grabacion = new MediaRecorder();
             grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
             grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -438,7 +440,7 @@ public class Formulario extends AppCompatActivity {
                 .setAddress(Et_Direccion.getText().toString().trim())
                 .setPhoneNumber(Et_Celular.getText().toString().trim())
                 .setUserId(accessUserSharedPreferences.getInt("userId", 0))
-                .setAudioEncode(convertAudioToBase64())
+                .setAudioEncode("test")
                 .setQuestions(Arrays.asList(
                         new QuestionDto()
                                 .setQuestionName("Pregunta 1 - " + tv_pregunta1.getText().toString())
@@ -473,15 +475,44 @@ public class Formulario extends AppCompatActivity {
                 ));
 
         postPollApi = endpointsPolls.postPoll(encuestaDto);
-        postPollApi.enqueue(new Callback<ResponsePostPollDto>() {
+        postPollApi.enqueue(new Callback<PostPollDtoResponse>() {
             @Override
-            public void onResponse(Call<ResponsePostPollDto> call, Response<ResponsePostPollDto> response) {
+            public void onResponse(Call<PostPollDtoResponse> call, Response<PostPollDtoResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().success) {
+                        int pollId = response.body().pollIdCreated;
+
+                        // load file via REST API
+                        File file = new File(archivoSalida);
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("audio/*"), file);
+                        MultipartBody.Part partFile = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+                        uploadFileApi = endpointsPolls.uploadFilee(pollId, partFile);
+                        uploadFileApi.enqueue(new Callback<UploadFileResponse>() {
+                            @Override
+                            public void onResponse(Call<UploadFileResponse> call, Response<UploadFileResponse> response) {
+                                Toast.makeText(Formulario.this, String.valueOf(response.body().success), Toast.LENGTH_SHORT).show();
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(Formulario.this, "Audio subido exitosamente", Toast.LENGTH_LONG)
+                                            .show();
+                                    Intent intent = new Intent(Formulario.this, EncuestaAtivity.class);
+                                    startActivity(intent);
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<UploadFileResponse> call, Throwable t) {
+                                Toast.makeText(Formulario.this, t.getMessage(), Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
+
+
                         Toast.makeText(Formulario.this, "Encuesta registrada correctamente", Toast.LENGTH_SHORT)
                                 .show();
-                        Intent intent = new Intent(Formulario.this, EncuestaAtivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(Formulario.this, EncuestaAtivity.class);
+                        //startActivity(intent);
                     } else {
                         Toast.makeText(Formulario.this, "Ocurrio un error al registrar la encuesta", Toast.LENGTH_SHORT)
                                 .show();
@@ -490,7 +521,7 @@ public class Formulario extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponsePostPollDto> call, Throwable t) {
+            public void onFailure(Call<PostPollDtoResponse> call, Throwable t) {
 
             }
         });
