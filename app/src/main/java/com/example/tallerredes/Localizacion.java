@@ -53,6 +53,10 @@ public class Localizacion implements LocationListener {
         VariablesGlobales.longitud = String.valueOf(location.getLongitude());
        // System.out.println(texto);
 
+        preferences.edit()
+                .putFloat("latitude",(float)location.getLatitude())
+                .putFloat("longitude",(float)location.getLongitude())
+                .commit();
 
         putLocationApi = endpointsPolls.putLocation(pollsterId, Float.parseFloat(VariablesGlobales.latitud), Float.parseFloat(VariablesGlobales.longitud));
         putLocationApi.enqueue(new Callback<PutLocationDtoResponse>() {

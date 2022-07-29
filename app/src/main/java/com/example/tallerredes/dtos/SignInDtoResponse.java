@@ -142,5 +142,22 @@ public class SignInDtoResponse {
         public void setCreatedIn(String CreatedIn) {
             this.CreatedIn = CreatedIn;
         }
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "PollsterId=" + PollsterId +
+                    ", CI='" + CI + '\'' +
+                    ", Names='" + Names + '\'' +
+                    ", Lastnames='" + Lastnames + '\'' +
+                    ", Email='" + Email + '\'' +
+                    ", Phone='" + Phone + '\'' +
+                    ", Gender='" + Gender + '\'' +
+                    ", Address='" + Address + '\'' +
+                    ", Latitude=" + Latitude +
+                    ", Longitude=" + Longitude +
+                    ", CreatedIn='" + CreatedIn + '\'' +
+                    '}';
+        }
     }
 }

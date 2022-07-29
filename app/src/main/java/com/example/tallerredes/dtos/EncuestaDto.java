@@ -11,6 +11,10 @@ public class EncuestaDto {
     public String PhoneNumber;
     public List<QuestionDto> Questions;
     public String AudioEncode;
+    public float Latitude;
+    public float Longitude;
+
+
     public int UserId;
 
 
@@ -74,6 +78,24 @@ public class EncuestaDto {
 
     public EncuestaDto setUserId(int userId) {
         UserId = userId;
+        return this;
+    }
+
+    public float getLatitude() {
+        return Latitude;
+    }
+
+    public EncuestaDto setLatitude(float latitude) {
+        Latitude = latitude;
+        return this;
+    }
+
+    public float getLongitude() {
+        return Longitude;
+    }
+
+    public EncuestaDto setLongitude(float longitude) {
+        Longitude = longitude;
         return this;
     }
 

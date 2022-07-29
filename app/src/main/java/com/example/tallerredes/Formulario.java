@@ -441,6 +441,8 @@ public class Formulario extends AppCompatActivity {
                 .setPhoneNumber(Et_Celular.getText().toString().trim())
                 .setUserId(accessUserSharedPreferences.getInt("userId", 0))
                 .setAudioEncode("test")
+                .setLatitude(accessUserSharedPreferences.getFloat("latitude",0))
+                .setLongitude(accessUserSharedPreferences.getFloat("longitude", 0))
                 .setQuestions(Arrays.asList(
                         new QuestionDto()
                                 .setQuestionName("Pregunta 1 - " + tv_pregunta1.getText().toString())

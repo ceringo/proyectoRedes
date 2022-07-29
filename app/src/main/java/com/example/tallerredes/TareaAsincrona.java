@@ -4,6 +4,8 @@ import static com.example.tallerredes.VariablesGlobales.BASE_URL;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.tallerredes.apis.EndpointsPolls;
 import com.example.tallerredes.dtos.SignInDtoResponse;
@@ -26,16 +28,17 @@ public class TareaAsincrona extends AsyncTask<Object, Void, Boolean> {
     public TareaAsincrona(Comunicacion comunicacion, SharedPreferences preferences) {
         this.comunicacion = comunicacion;
         this.accessUserSharedPreferences = preferences;
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        endpointsPolls = retrofit.create(EndpointsPolls.class);
+
     }
 
 
     @Override
     protected void onPreExecute() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        endpointsPolls = retrofit.create(EndpointsPolls.class);
         comunicacion.toggleProgressBar(true);
     }
 
@@ -54,15 +57,14 @@ public class TareaAsincrona extends AsyncTask<Object, Void, Boolean> {
             authenticateCallApi.enqueue(new Callback<SignInDtoResponse>() {
                 @Override
                 public void onResponse(Call<SignInDtoResponse> call, Response<SignInDtoResponse> response) {
-
+                    System.out.println("RESPONSE STATE:"+ response.isSuccessful());
                     if (response.isSuccessful()) {
-
+                        int userId = (int)response.body().getUserId();
+                        SignInDtoResponse.Data data = response.body().getData();
                         accessUserSharedPreferences.edit()
                                 .putBoolean("auth", true)
-                                .putInt("userId", (int) response.body().getUserId())
-                                .putInt("pollsterId", (int) response.body()
-                                        .getData()
-                                        .getPollsterId())
+                                .putInt("userId", (int) userId)
+                                .putInt("pollsterId", (int) data.getPollsterId())
                                 .commit();
 
                     } else {
